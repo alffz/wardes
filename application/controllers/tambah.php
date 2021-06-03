@@ -7,13 +7,33 @@
             parent::__construct();
             // jika sesion email gak ada redirect ke login
             $this->load->helper('fungsi');
+            $this->load->model('ModelAnggotaKeluarga');
             // jika sesion email gak ada redirect ke login
             is_logedin();
         }
 
         public function index(Type $var = null)
         {
-            redirect("home");
+               // jika tambah inser gagal balik ke halamn ini
+               $this->form_validation->set_rules('jalan','Jalan','required');
+               $this->form_validation->set_rules('dusun','Dusun','required');
+               if($this->form_validation->run() == FALSE){
+               $data['header']     = 'hold-transition sidebar-mini layout-fixed';
+               $data['wrapper']    = 'wrapper';
+               $data['jalan']      = $this->ModelJalan->getdusun();
+               $data['user']   	= $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
+               $data['title']      = "Tambah Jalan";
+               $this->load->view('header',$data);
+               $this->load->view('sidebar');
+               $this->load->view('tambah_jalan');
+               $this->load->view('footer');
+               }
+               else{
+                   // tambahkan jalan ke database 
+                   $this->ModelJalan->tambahjln();
+                   // kemudian alihkan ke base home
+                   redirect('tambah/');
+               }
         }
         // tambah dusun 
         public function Dusun($tingkat= null)
@@ -36,33 +56,10 @@
 
                 $this->ModelDusun->tambahdsn();
                 // alihkan ke base home
-                redirect('home');
+                redirect('tambah');
             }
         }
 
-        public function Jalan(Type $var = null)
-        {
-            // jika tambah inser gagal balik ke halamn ini
-            $this->form_validation->set_rules('jalan','Jalan','required');
-            $this->form_validation->set_rules('dusun','Dusun','required');
-            if($this->form_validation->run() == FALSE){
-            $data['header']     = 'hold-transition sidebar-mini layout-fixed';
-            $data['wrapper']    = 'wrapper';
-            $data['jalan']      = $this->ModelJalan->getdusun();
-            $data['user']   	= $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
-            $data['title']      = "Tambah Jalan";
-            $this->load->view('header',$data);
-            $this->load->view('sidebar');
-            $this->load->view('tambah_jalan');
-            $this->load->view('footer');
-            }
-            else{
-                // tambahkan jalan ke database 
-                $this->ModelJalan->tambahjln();
-                // kemudian alihkan ke base home
-                redirect('home');
-            }
-        }
 
         // gang 
         public function Gang($tingkat= null)
@@ -87,7 +84,7 @@
                 // 
                 $this->ModelGang->tambahgang();
                 // alihkan ke base home
-                redirect('home');
+                redirect('tambah');
             }
         }
 
@@ -136,6 +133,41 @@
             }
         }
 
+        // anggota keluarga
+        public function anggotaKeluarga($tingkat= null)
+        {   
+            // $this->load->model('k_keluarga');
+            // jika tambah ikartu kelauarga gagal balik ke halamn ini
+            $this->form_validation->set_rules('nik','Nik','required');
+            $this->form_validation->set_rules('nama','Nama','required');
+            $this->form_validation->set_rules('dusun','Dusun','required');
+            $this->form_validation->set_rules('jalan','Jalan','required');
+            $this->form_validation->set_rules('gang','Gang','required');
+            $this->form_validation->set_rules('latitude','Latitude');
+            $this->form_validation->set_rules('longitude','Longitude');
+            if($this->form_validation->run() == FALSE){
+                $data   = [
+                    'header'    =>  'hold-transition sidebar-mini layout-fixed',
+                    'wrapper'   =>  'wrapper',
+                    'desa'      => 'Bandar Khalipah',
+                    'title'     => "Tambah Kartu Keluarga",
+                    'user'  	=> $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
+                    'pendidikan'=> $this->ModelAnggotaKeluarga->GetPendidikan(),
+                    'pekerjaan' => $this->ModelAnggotaKeluarga->GetPekerjaan(),
+                    'hubungan'  => $this->ModelAnggotaKeluarga->GetHubungan(),
+                ];
+            $this->load->view('header',$data);
+            $this->load->view('sidebar');
+            $this->load->view('tambah_anggotaKeluarga',$data);
+            $this->load->view('footer');
+            }
+            // jika berhasil insert data dan redirect ke home
+            else{
+                // 
+                $this->ModelKartuKeluarga->TambahKartuKeluarga();
+                redirect('tambah/kartukeluarga');
+            }
+        }
          // dusun
         // data ini dikirm ke model
         public function Dusun1()

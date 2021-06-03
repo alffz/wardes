@@ -4,7 +4,7 @@
         	// start datatables
     var $column_order = array(null, null, 'nama_kk','nama_dusun','nama_jalan','nama_gang'); //set column field database for datatable orderable
     var $column_search = array('nik','nama_kk', 'nama_dusun','nama_jalan','nama_gang'); //set column field database for datatable searchable
-    var $order = array('nama_kk' => 'asc'); // default order 
+    var $order = array('waktu' => 'desc'); // default order 
     // SELECT * FROM `kartu_keluarga` 
     //     JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun 
     //     JOIN gang ON gang.id_gang = kartu_keluarga.id_gang 
@@ -17,6 +17,7 @@
 		$this->db->join('dusun', 'kartu_keluarga.id_dusun = dusun.id_dusun');
 		$this->db->join('jalan', 'kartu_keluarga.id_jalan = jalan.id_jalan');
         $this->db->join('gang', 'kartu_keluarga.id_gang = gang.id_gang');
+        // ketika user.id_dusun = id_dusun 
         $i = 0;
         foreach ($this->column_search as $item) { // loop column 
             if(@$_POST['search']['value']) { // if datatable send POST for search

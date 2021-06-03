@@ -3,14 +3,6 @@
     
     class ModelKartuKeluarga extends CI_Model{
         
-        // // get desa langsung dari database
-        // public function GetDesa()
-        // {
-        //     $this->db->order_by('nama_desa','ASC');
-        //     return $this->db->get('desa')->result_array();
-        // }
-        // get dusun
-        // tampilkan dusun yg id desanya $val
         public function GetDusun($val='')
         {
             $this->db->order_by('nama_dusun');
@@ -43,23 +35,38 @@
         // insert data kartu keluarga
         public function TambahKartuKeluarga(Type $var = null)
         {
-            // siapkan data
-            $data   = [
-                'id_kk'     => uniqid(),
-                'nik'       => $this->input->post('nik',true),
-                'nama_kk'   => $this->input->post('nama',true),
-                'id_desa'   => $this->input->post('desa',true),
-                'id_dusun'  => $this->input->post('dusun',true),
-                'id_jalan'  => $this->input->post('jalan',true),
-                'id_gang'   => $this->input->post('gang',true),
-                'Latitude'  => $this->input->post('latitude',true),
-                'longitude' => $this->input->post('longitude',true),
-                'date'      => $this->input->post('time'),
-                'pengisi'   => $this->input->post('user',true),
-                'keterangan'=> $this->input->post('keterangan',true)
-            ];
-            $this->db->insert('kartu_keluarga',$data);
+            // insert jika NIK belum ada 
+            $nik   = $this->input->post('nik');
+            $query = $this->db->query("select * from kartu_keluarga where nik='$nik'");
+            $query = $query->num_rows();
+            if($query > 0){
+                
+                $this->session->set_flashdata('nik','<div class="alert alert-warning" role="alert">NIK telah ada </div>');
+                redirect('tambah/kartukeluarga');
+            }
+            else
+            {
+                $data   = [
+                    'id_kk'     => uniqid(),
+                    'nik'       => $this->input->post('nik',true),
+                    'nama_kk'   => $this->input->post('nama',true),
+                    'id_desa'   => $this->input->post('desa',true),
+                    'id_dusun'  => $this->input->post('dusun',true),
+                    'id_jalan'  => $this->input->post('jalan',true),
+                    'id_gang'   => $this->input->post('gang',true),
+                    'Latitude'  => $this->input->post('latitude',true),
+                    'longitude' => $this->input->post('longitude',true),
+                    'date'      => $this->input->post('time'),
+                    'waktu'     => time(),
+                    'pengisi'   => $this->input->post('user',true),
+                    'keterangan'=> $this->input->post('keterangan',true)
+                ];
+                $this->db->insert('kartu_keluarga',$data);
+                $this->session->unset_userdata('pesan');;
+            }            
         }
+           
+        
     }
 
 ?>

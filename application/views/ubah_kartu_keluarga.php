@@ -2,13 +2,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-6">
         <?= validation_errors() ?>
-        <?= $this->session->flashdata('nik') ?>
             <form role='form' method='post' >
                 <input type="hidden" name="time" value="<?= date('d').date('m').date('y') ?>">
-                <input type="hidden" name="user" value="<?= $user['id_user']?>">
+                <input type="text" name="user" value="<?= $user['id_user']?>">
                 <div class="form-group">
                     <label for="nik">Nomor KK</label>
-                    <input type="number" class="form-control" name='nik' id="nik" placeholder="masukkan nomor KK">
+                    <input type="number" class="form-control" name='nik' value="<?= $user['nik']?>" id="nik" placeholder="masukkan nomor KK">
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama Kepala Keluarga</label>

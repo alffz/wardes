@@ -24,6 +24,20 @@
 
         }
 
+        // test count 
+        public function countResult()
+        {
+            $nik = 10;
+            $query = $this->db->query("select * from kartu_keluarga where nik='$nik'");
+            $query = $query->num_rows();
+            if($query > 0){
+                echo "ada";
+            }
+            else{
+                echo"gak ada";
+            }
+        }
+
         public function GetDusun(Type $var = null)
         {
             return $this->db->get;
