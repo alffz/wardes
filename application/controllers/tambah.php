@@ -133,24 +133,45 @@
             }
         }
 
+        public function ruleAk(Type $var = null)
+        {
+            $this->form_validation->set_rules('nama','Nama','required');
+            $this->form_validation->set_rules('nik','Nik','required');
+            $this->form_validation->set_rules('kelamin','Kelamin','required');
+            $this->form_validation->set_rules('tmptlahir','Tempat Lahir','required');
+            $this->form_validation->set_rules('tanggal','Tanggal','required');
+            $this->form_validation->set_rules('agama','Agama');
+            $this->form_validation->set_rules('pendidikan','Pendidikan');
+            $this->form_validation->set_rules('pekerjaan','Pekerjaan');
+            $this->form_validation->set_rules('status','Status Perkawinan');
+            $this->form_validation->set_rules('hubungan','Hubungan');
+            $this->form_validation->set_rules('kewarganegaraan','Kewarganegaraan');
+            $this->form_validation->set_rules('ayah','Nama Ayah');
+            $this->form_validation->set_rules('ibu','Nama Ibu');
+        }
         // anggota keluarga
         public function anggotaKeluarga($tingkat= null)
         {   
             // $this->load->model('k_keluarga');
             // jika tambah ikartu kelauarga gagal balik ke halamn ini
-            $this->form_validation->set_rules('nik','Nik','required');
+            $id_kk      = $this->uri->segment(3);
             $this->form_validation->set_rules('nama','Nama','required');
-            $this->form_validation->set_rules('dusun','Dusun','required');
-            $this->form_validation->set_rules('jalan','Jalan','required');
-            $this->form_validation->set_rules('gang','Gang','required');
-            $this->form_validation->set_rules('latitude','Latitude');
-            $this->form_validation->set_rules('longitude','Longitude');
+            $this->form_validation->set_rules('nik','Nik','required');
+            $this->form_validation->set_rules('kelamin','Kelamin','required');
+            $this->form_validation->set_rules('tmptlahir','Tempat Lahir','required');
+            $this->form_validation->set_rules('tanggal','Tanggal','required');
+            $this->form_validation->set_rules('agama','Agama');
+            $this->form_validation->set_rules('pendidikan','Pendidikan');
+            $this->form_validation->set_rules('pekerjaan','Pekerjaan');
+            $this->form_validation->set_rules('status','Status Perkawinan');
+            $this->form_validation->set_rules('hubungan','Hubungan');
+            $this->form_validation->set_rules('kewarganegaraan','Kewarganegaraan');
+            $this->form_validation->set_rules('ayah','Nama Ayah');
+            $this->form_validation->set_rules('ibu','Nama Ibu');
             if($this->form_validation->run() == FALSE){
                 $data   = [
-                    'header'    =>  'hold-transition sidebar-mini layout-fixed',
-                    'wrapper'   =>  'wrapper',
                     'desa'      => 'Bandar Khalipah',
-                    'title'     => "Tambah Kartu Keluarga",
+                    'title'     => "Tambah Anggota Keluarga",
                     'user'  	=> $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
                     'pendidikan'=> $this->ModelAnggotaKeluarga->GetPendidikan(),
                     'pekerjaan' => $this->ModelAnggotaKeluarga->GetPekerjaan(),
@@ -164,8 +185,8 @@
             // jika berhasil insert data dan redirect ke home
             else{
                 // 
-                $this->ModelKartuKeluarga->TambahKartuKeluarga();
-                redirect('tambah/kartukeluarga');
+                $this->ModelAnggotaKeluarga->TambahAk();
+                redirect('tambah/anggotaKeluarga/'.$id_kk);
             }
         }
          // dusun
