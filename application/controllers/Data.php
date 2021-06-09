@@ -13,12 +13,8 @@
         }
         public function index(Type $var = null)
         {
-            // 
-        }
-        public function Penduduk(Type $var = null)
-        {
             $data   = [
-                'title'     => 'Sekdes',
+                'title'     => 'Kartu Keluarga',
                 'user'      => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array()
             ];      
             $this->load->view('header',$data);
@@ -119,14 +115,43 @@
 
         public function Ubah()
         {
-            $data   = [
-                'title'     => 'Sekdes',
-                'user'      => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array()
-            ];      
-            $this->load->view('header',$data);
-            $this->load->view('sidebar',$data);
-            $this->load->view('ubah_data_penduduk',$data);
-            $this->load->view('footer');
+            $this->form_validation->set_rules('idkk','IdKK','required');
+            $this->form_validation->set_rules('nik','Nik','required');
+            $this->form_validation->set_rules('nama','Nama','required');
+            $this->form_validation->set_rules('dusun','Dusun','required');
+            $this->form_validation->set_rules('jalan','Jalan','required');
+            $this->form_validation->set_rules('gang','Gang','required');
+            $this->form_validation->set_rules('keterangan','Keterangan');
+            $this->form_validation->set_rules('latitude','Latitude');
+            $this->form_validation->set_rules('longitude','Longitude');
+            if($this->form_validation->run()==false){
+                $data   = [
+                    'title'     => 'Ubah Kartu Keluarga',
+                    'user'      => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
+                    'kk'        => $this->ModelKartuKeluarga->getKk(),
+                    'jalan'     => $this->ModelKartuKeluarga->getjalan1(),
+                    'gang'      => $this->ModelKartuKeluarga->gang()
+                ];      
+                $this->load->view('header',$data);
+                $this->load->view('sidebar',$data);
+                $this->load->view('ubah_kartu_keluarga',$data);
+                $this->load->view('footer');
+            }else{
+                $this->ModelKartuKeluarga->Ubahkk();
+                redirect('data');
+            }
+
+        }
+        
+        public function ubahGang()
+        {
+            $id_jalan  = $this->input->post('jalan');
+            // cari gang yang id_dusun = $id_jalan
+            $query     = $this->db->query("SELECT * FROM gang WHERE id_jalan='$id_jalan'")->result();
+
+            foreach($query as $q){
+                echo '<option value="'.$q->id_gang.'">'.$q->nama_gang.'</option>';
+            }
         }
     }
 

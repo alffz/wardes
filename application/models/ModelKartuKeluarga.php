@@ -65,7 +65,60 @@
                 $this->session->unset_userdata('pesan');;
             }            
         }
-           
+        
+        // ubah kartu keluarga
+        public function Ubahkk()
+        {   
+            $id_kk  = $this->input->post('idkk');
+            $data = array(
+                'nik'       => $this->input->post('nik',true),
+                'nama_kk'   => $this->input->post('nama',true),
+                'id_desa'   => $this->input->post('desa',true),
+                'id_dusun'  => $this->input->post('dusun',true),
+                'id_jalan'  => $this->input->post('jalan',true),
+                'id_gang'   => $this->input->post('gang',true),
+                'Latitude'  => $this->input->post('latitude',true),
+                'longitude' => $this->input->post('longitude',true),
+                'date'      => date('m').date('d').date('y'),
+                'waktu'     => time(),
+                'pengisi'   => $this->input->post('user',true),
+                'keterangan'=> $this->input->post('keterangan',true)
+            );
+            $this->db->where('id_kk',$id_kk);
+            $this->db->update('kartu_keluarga',$data);
+        }
+        // dapatkan informasi kartu kelaurga
+        public function getKk()
+        {
+            $id     = $this->uri->segment(3);
+            return  $this->db->query("SELECT * FROM kartu_keluarga 
+                                     JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun
+                                     JOIN jalan ON kartu_keluarga.id_jalan = jalan.id_jalan
+                                     JOIN gang  ON kartu_keluarga.id_gang  = gang.id_gang
+                                     WHERE id_kk='$id'")->result();
+        }
+        public function getjalan1()
+        {
+            $id_dusun     = $this->ModelKartuKeluarga->getKk();
+            foreach($id_dusun as $i){      
+                return $this->db->query("SELECT * FROM jalan WHERE id_dusun='$i->id_dusun' ORDER BY jalan.nama_jalan ASC")->result();                
+            }
+        }
+        public function gang()
+        {
+            $id_jalan  = $this->getKk();
+            foreach($id_jalan as $ij){
+                return $this->db->query("SELECT * FROM gang WHERE id_jalan='$ij->id_jalan' ORDER BY gang.nama_gang desc")->result();
+            }            
+        }
+        public function gang1()
+        {
+            $id_jalan  = $this->input->post('jalan');
+            $data      = $this->getKk();
+            foreach($data as $ij){
+                return $this->db->query("SELECT * FROM gang WHERE id_jalan='$id_jalan' ORDER BY gang.nama_gang desc")->result();
+            }            
+        }
     // start datatables
     var $column_order = array(null, null, 'nama_kk','nama_dusun','nama_jalan','nama_gang'); //set column field database for datatable orderable
     var $column_search = array('nik','nama_kk', 'nama_dusun','nama_jalan','nama_gang'); //set column field database for datatable searchable

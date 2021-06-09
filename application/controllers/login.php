@@ -53,13 +53,13 @@
                     // jika role_id == 1 maka redirect ke sekdes
                     
                   if($user['role_id']==1){                    
-                    redirect('sekdes');
+                    redirect('data');
                   }
                   elseif($user['role_id']==2){
-                      redirect('kadus');
+                      redirect('data');
                   }
                   else{
-                    redirect('tamu');
+                    redirect('data');
                   }
                 }
                 else{
