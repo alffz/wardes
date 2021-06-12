@@ -6,6 +6,7 @@
             $data = [
                 'id_ak'             => uniqid(),
                 'id_kk'             => $this->uri->segment(3),
+                'nomor_urut'        => $this->input->post('nourut',true),
                 'nama'              => $this->input->post('nama',true),
                 'nik'               => $this->input->post('nik',true),
                 'kelamin'           => $this->input->post('kelamin',true),
@@ -24,15 +25,33 @@
             $this->db->insert('anggota_keluarga',$data);
         }
 
-        public function updateAK(Type $var = null)
+        public function UbahAk(Type $var = null)
         {
-            
+                $data = array(
+                    'nomor_urut'        => $this->input->post('nourut',true),
+                    'nama'              => $this->input->post('nama',true),
+                    'nik'               => $this->input->post('nik',true),
+                    'kelamin'           => $this->input->post('kelamin',true),
+                    'tmpt_lahir'        => $this->input->post('tmptlahir',true),
+                    'tanggal_lahir'     => $this->input->post('tanggal'),
+                    'tanggal_pencatatan'=> $this->input->post('tanggalPencatatan',true),
+                    'agama'             => $this->input->post('agama',true),
+                    'id_pendidikan'     => $this->input->post('pendidikan',true),
+                    'id_pekerjaan'      => $this->input->post('pekerjaan',true),
+                    'status_perkawinan' => $this->input->post('status',true),
+                    'id_hub_keluarga'   => $this->input->post('hubungan',true),
+                    'kewarganegaraan'   => $this->input->post('Kewarganegaraan',true),
+                    'NamaAyah'          => $this->input->post('ayah',true),
+                    'NamaIbu'           => $this->input->post('ibu',true),
+                );
+            $id_kk  = $this->uri->segment(3);
+            $this->db->where('id_ak', $id_kk);
+            $this->db->update('anggota_keluarga', $data);
         }
 
         public function GetPendidikan()
         {
-            return $this->db->query("SELECT * FROM pendidikan")->result();
-        
+            return $pendidikan = $this->db->query("SELECT * FROM pendidikan")->result();         
         }
         public function GetPekerjaan()
         {
@@ -43,11 +62,17 @@
             return $this->db->query("SELECT * FROM hubungan_keluarga")->result();
         }
 
+        public function getAk(Type $var = null)
+        {
+            // ambil anggota_keluarga yang id nya = $id
+            $id    = $this->uri->segment(3);
+            return $this->db->query("SELECT * FROM anggota_keluarga WHERE id_ak='$id'")->result();
+        }
     
     // start datatables
     var $column_order = array(null, null,null, 'nama','nik'); //set column field database for datatable orderable
     var $column_search = array('nama','nik', 'agama'); //set column field database for datatable searchable
-    var $order = array('nomor_urut' => 'desc'); // default order 
+    var $order = array('nomor_urut' => 'asc'); // default order 
     /*  SELECT dusun.nama_dusun FROM `anggota_keluarga` 
             JOIN kartu_keluarga ON anggota_keluarga.id_kk = kartu_keluarga.id_kk 
             JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun

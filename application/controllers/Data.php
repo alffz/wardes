@@ -82,7 +82,7 @@
                 $no++;
                 $row    = array();
                 $row[]  = $no;
-                $row[]  =   '<a href="'.base_url('data/ubah/'.$item->id_ak).'"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+                $row[]  =   '<a href="'.base_url('ubah/anggotakelauaga/'.$item->id_ak).'"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
                             <a href="'.base_url('data/hapusKK/'.$item->id_ak).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
                 $row[]  = $item->nik;
                 $row[]  = $item->nama;
