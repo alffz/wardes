@@ -20,7 +20,6 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Desa</label>
                             <select class="form-control" name='desa' id="desas">
-                                <option >Pilih desa</option>
                                 <option value="3">Bandar Khalipah</option>
                             </select>
                         </div>
@@ -29,10 +28,8 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Dusun</label>
                             <select class="form-control" name='dusun' id="dusun">
-                                <option >Pilih Dusun</option>
-                                <?php foreach ($dusun as $dusun): ?>
-                                    <option value='<?= $dusun->id_dusun ?>'> <?= $dusun->nama_dusun?> </option>
-                                <?php endforeach ?>
+                                    <option value='<?= $kaka['id_dusun'] ?>'> <?= $kaka['nama_dusun']?> </option>
+                               
                             </select>
                         </div>
                     </div>
@@ -41,14 +38,16 @@
                             <label for="exampleFormControlSelect1">Jalan</label>
                             <select class="form-control" name='jalan' id="jalan">
                                 <option >Pilih jalan</option>
+                                <?php foreach($jalan as $j) : ?>
+                                <option value="<?= $j->id_jalan?>"><?= $j->nama_jalan?></option>
+                                <?php endforeach ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Gang</label>
-                            <select class="form-control" name='gang' id="gang">
-                                <option>Pilih Gang</option>                                
+                            <select class="form-control" name='gang' id="gang">           
                             </select>
                         </div>
                     </div>
@@ -76,7 +75,6 @@
         </div>
     </div>
 </div>
-<?php var_dump($dusun) ?>
 <script>
     $(document).ready(function(){
         // dusun

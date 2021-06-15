@@ -1,5 +1,4 @@
 <?php
-
     
     class ModelKartuKeluarga extends CI_Model{
         
@@ -25,8 +24,7 @@
         {
             $this->db->where('id_jalan',$val);
             $this->db->order_by('nama_gang','asc');
-            $query = $this->db->get('gang')->result();            
-            echo '<option> Pilih Gang </option>';
+            $query = $this->db->get('gang')->result();   
             foreach($query as $row){
                 echo '<option value="'.$row->id_gang.'">'.$row->nama_gang.'</option>';
             }
@@ -37,10 +35,9 @@
         {
             // insert jika NIK belum ada 
             $nik   = $this->input->post('nik');
-            $query = $this->db->query("select * from kartu_keluarga where nik='$nik'");
+            $query = $this->db->query("SELECT * FROM kartu_keluarga WHERE nik='$nik'");
             $query = $query->num_rows();
-            if($query > 0){
-                
+            if($query > 0){                
                 $this->session->set_flashdata('nik','<div class="alert alert-warning" role="alert">NIK telah ada </div>');
                 redirect('tambah/kartukeluarga');
             }
@@ -62,30 +59,55 @@
                     'keterangan'=> $this->input->post('keterangan',true)
                 ];
                 $this->db->insert('kartu_keluarga',$data);
-                $this->session->unset_userdata('pesan');;
+                $this->session->unset_userdata('pesan');
             }            
         }
         
         // ubah kartu keluarga
         public function Ubahkk()
         {   
-            $id_kk  = $this->input->post('idkk');
-            $data = array(
-                'nik'       => $this->input->post('nik',true),
-                'nama_kk'   => $this->input->post('nama',true),
-                'id_desa'   => $this->input->post('desa',true),
-                'id_dusun'  => $this->input->post('dusun',true),
-                'id_jalan'  => $this->input->post('jalan',true),
-                'id_gang'   => $this->input->post('gang',true),
-                'Latitude'  => $this->input->post('latitude',true),
-                'longitude' => $this->input->post('longitude',true),
-                'date'      => date('m').date('d').date('y'),
-                'waktu'     => time(),
-                'pengisi'   => $this->input->post('user',true),
-                'keterangan'=> $this->input->post('keterangan',true)
-            );
-            $this->db->where('id_kk',$id_kk);
-            $this->db->update('kartu_keluarga',$data);
+            
+            $id_kk  = $this->input->post('idkk',true);
+            $nikk    = $this->input->post('nik',true);
+            $query  = $this->db->query("SELECT * FROM kartu_keluarga WHERE nik='$nikk'");
+            $nik    = $this->db->query("SELECT * FROM kartu_keluarga WHERE id_kk='$id_kk'")->row();      
+            // jika data udah ada dan nik !== $nik maka insert
+            if($query->num_rows()>0 ){
+                if($nik->nik==$nikk){
+                    $data = array(
+                        'nik'       => $this->input->post('nik',true),
+                        'nama_kk'   => $this->input->post('nama',true),
+                        'id_desa'   => $this->input->post('desa',true),
+                        'id_dusun'  => $this->input->post('dusun',true),
+                        'id_jalan'  => $this->input->post('jalan',true),
+                        'id_gang'   => $this->input->post('gang',true),
+                        'Latitude'  => $this->input->post('latitude',true),
+                        'longitude' => $this->input->post('longitude',true),
+                        'date'      => date('m').date('d').date('y'),
+                        'waktu'     => time(),
+                        'pengisi'   => $this->input->post('user',true),
+                        'keterangan'=> $this->input->post('keterangan',true)
+                    );
+                    $this->db->where('id_kk',$id_kk);
+                    $this->db->update('kartu_keluarga',$data);                
+                    $this->session->unset_userdata('nik');
+                    redirect(base_url('data/ubah/'.$id_kk));
+                }else{
+                    $this->session->set_flashdata('nik','<div class="alert alert-warning" role="alert">NIK telah ada </div>');
+                    redirect('data/ubah/'.$id_kk);
+                // echo"berhasil"; die();
+                }
+                
+            }
+        }
+        // get user
+        public function dusun()
+        {
+            $user   = $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
+            return $this->db->query("SELECT * FROM kartu_keluarga 
+                                    JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun
+                                    WHERE kartu_keluarga.id_dusun= '$user[id_dusun]'")->row_array();
+
         }
         // dapatkan informasi kartu kelaurga
         public function getKk()
@@ -97,12 +119,12 @@
                                      JOIN gang  ON kartu_keluarga.id_gang  = gang.id_gang
                                      WHERE id_kk='$id'")->result();
         }
-        public function getjalan1()
+        public function getJalan1()
         {
-            $id_dusun     = $this->ModelKartuKeluarga->getKk();
-            foreach($id_dusun as $i){      
-                return $this->db->query("SELECT * FROM jalan WHERE id_dusun='$i->id_dusun' ORDER BY jalan.nama_jalan ASC")->result();                
-            }
+            $id_dusun     = $this->dusun();
+            // foreach($id_dusun as $i){      
+                return $this->db->query("SELECT * FROM jalan WHERE id_dusun='$id_dusun[id_dusun]' ORDER BY jalan.nama_jalan ASC")->result();                
+            // }
         }
         public function gang()
         {

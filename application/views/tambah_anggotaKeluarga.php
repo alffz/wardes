@@ -6,7 +6,11 @@
             JOIN dusun ON dusun.id_dusun = kartu_keluarga.id_dusun 
         WHERE dusun.id_dusun = $id_dusun
  -->
+ 
 <div class="container ">
+<div class="box">
+ <a class="btn btn-danger" href="<?= base_url('data/anggotakeluarga/'.$this->uri->segment(3))?>" >kembali</a>
+ </div>
     <div class="row justfy-content-centre ml-3 mr-3">
         <?= validation_errors() ?>
         <form role='form' method='post' >

@@ -1,6 +1,7 @@
 
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/datatable.min.css') ?>">
 <div class="container">
+<h3>Data Kartu Keluarga</h3>
 <table id="kartukeluarga" class="table table-striped table-bordered" style="width:100%">
     <thead class="thead-dark">
       <tr>
@@ -19,7 +20,6 @@
     </tbody>
   </table>
 </div>
- <?=$user['id_dusun'] ?>
   <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.js"></script>
  <script>

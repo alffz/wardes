@@ -83,7 +83,7 @@
                 $row    = array();
                 $row[]  = $no;
                 $row[]  =   '<a href="'.base_url('ubah/anggotakelauaga/'.$item->id_ak).'"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
-                            <a href="'.base_url('data/hapusKK/'.$item->id_ak).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
+                            <a href="'.base_url('hapus/hapusAk/'.$item->id_ak.'/'.$id_kk).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
                 $row[]  = $item->nik;
                 $row[]  = $item->nama;
                 $row[]  = $item->kelamin;
@@ -129,7 +129,7 @@
                     'title'     => 'Ubah Kartu Keluarga',
                     'user'      => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
                     'kk'        => $this->ModelKartuKeluarga->getKk(),
-                    'jalan'     => $this->ModelKartuKeluarga->getjalan1(),
+                    'jalan'     => $this->ModelKartuKeluarga->getJalan1(),
                     'gang'      => $this->ModelKartuKeluarga->gang()
                 ];      
                 $this->load->view('header',$data);

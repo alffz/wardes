@@ -40,7 +40,37 @@
 
         public function GetDusun(Type $var = null)
         {
-            return $this->db->get;
+            return $this->db->get();
+        }
+
+        public function tesarray()
+        {
+            $query  = $this->db->query("SELECT * FROM kartu_keluarga WHERE id_kk='60b9b55320742'");
+            $nik    = $this->db->query("SELECT * FROM kartu_keluarga WHERE id_kk='60b9b55320742'")->row();
+            // var_dump($query->nik);
+            // var_dump($query->num_rows());
+            /* jika $query > 0  {
+                    jika $nik->nik = $nik{
+                        insert
+                    }
+                    else{
+                        echo "denay"
+                    }
+            }
+            */
+            // var_dump($nik->nik);die();
+            if($query->num_rows()>0 && $nik->nik=="120982"){
+                // if($nik->nik=="120982"){
+                //     echo"insert";
+                // }
+                // else{
+                //     echo"denay";
+                // }
+                echo "insert";
+            }
+            else{
+                echo "nothing";
+            }
         }
     }
 

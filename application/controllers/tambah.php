@@ -11,8 +11,12 @@
             // jika sesion email gak ada redirect ke login
             is_logedin();
         }
+        public function i(Type $var = null)
+        {
+            # code...
+        }
 
-        public function index(Type $var = null)
+        public function jalan(Type $var = null)
         {
                // jika tambah inser gagal balik ke halamn ini
                $this->form_validation->set_rules('jalan','Jalan','required');
@@ -21,7 +25,7 @@
                $data['header']     = 'hold-transition sidebar-mini layout-fixed';
                $data['wrapper']    = 'wrapper';
                $data['jalan']      = $this->ModelJalan->getdusun();
-               $data['user']   	= $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
+               $data['user']   	   = $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
                $data['title']      = "Tambah Jalan";
                $this->load->view('header',$data);
                $this->load->view('sidebar');
@@ -114,8 +118,8 @@
                     'desa'      => 'Bandar Khalipah',
                     'pos'       => 20371,
                     'desa'      => 3,
-                    'dusun'     => $this->ModelKartuKeluarga->GetDusun(),
-                    'jalan'     => $this->ModelKartuKeluarga->GetJalan(),
+                    'kaka'      => $this->ModelKartuKeluarga->dusun(),
+                    'jalan'     => $this->ModelKartuKeluarga->getJalan1(),
                     'gang'      => $this->ModelKartuKeluarga->GetGang(),
                     'title'     => "Tambah Kartu Keluarga",
                     'user'  	=> $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),

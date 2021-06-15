@@ -2,7 +2,11 @@
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/datatable.min.css') ?>">
 <div class="container">
 <p class="id" data-cek="<?= $this->uri->segment(3);?>">
-<a href="<?= base_url('tambah/anggotakeluarga/'). $this->uri->segment(3);?>">Tambah Anggota Keluarga</a>
+<div class="box">
+  <a class="btn btn-primary mt-3" href="<?= base_url('tambah/anggotakeluarga/'). $this->uri->segment(3);?>">Tambah Anggota Keluarga</a>
+  <a class="btn btn-danger mt-3" href="<?= base_url('data/penduduk/')?>">Kembali</a>
+</div>
+
 <table id="kartukeluarga" class="table table-striped table-bordered" style="width:100%">
     <thead class="thead-dark">
       <tr>

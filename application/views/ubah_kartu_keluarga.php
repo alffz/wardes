@@ -2,6 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-6">
         <?= validation_errors() ?>
+        <?= $this->session->flashdata('nik') ?>
             <?php foreach($kk as $kaka) : ?>
             <form role='form' method='post' >
                 <input type="hidden" name="idkk" value="<?= $kaka->id_kk?>">                
