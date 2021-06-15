@@ -11,10 +11,6 @@
             // jika sesion email gak ada redirect ke login
             is_logedin();
         }
-        public function i(Type $var = null)
-        {
-            # code...
-        }
 
         public function jalan(Type $var = null)
         {
@@ -24,7 +20,7 @@
                if($this->form_validation->run() == FALSE){
                $data['header']     = 'hold-transition sidebar-mini layout-fixed';
                $data['wrapper']    = 'wrapper';
-               $data['jalan']      = $this->ModelJalan->getdusun();
+               $data['dusun']      = $this->ModelJalan->getdusun();
                $data['user']   	   = $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
                $data['title']      = "Tambah Jalan";
                $this->load->view('header',$data);

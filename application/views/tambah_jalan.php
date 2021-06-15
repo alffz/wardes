@@ -26,10 +26,8 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Pilih Dusun</label>
                                 </div>
-                                <select name='dusun' class="custom-select" id="inputGroupSelect01">                    
-                                    <?php  foreach($jalan as $dusun): ?>
-                                        <option value='<?= $dusun['id_dusun'] ?>' ><?= $dusun['nama_dusun'] ?> </option>
-                                    <?php endforeach ?>
+                                <select name='dusun' class="custom-select" id="inputGroupSelect01"> 
+                                    <option value='<?= $dusun['id_dusun'] ?>' ><?= $dusun['nama_dusun'] ?> </option>
                                 </select>                    
                                 </div>
                                 <!-- end gang -->
