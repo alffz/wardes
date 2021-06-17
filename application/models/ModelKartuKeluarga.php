@@ -104,9 +104,7 @@
         public function dusun()
         {
             $user   = $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
-            return $this->db->query("SELECT * FROM kartu_keluarga 
-                                    JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun
-                                    WHERE kartu_keluarga.id_dusun= '$user[id_dusun]'")->row_array();
+            return $this->db->query("SELECT * FROM dusun where id_dusun= '$user[id_dusun]'")->row_array();
 
         }
         // dapatkan informasi kartu kelaurga

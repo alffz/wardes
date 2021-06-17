@@ -8,6 +8,7 @@
       <th scope="col">Nomor Hp</th>
       <th scope="col">Alamat</th>
       <th scope="col">Kadus</th>
+      <th>aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -19,16 +20,18 @@
       </td>
       <td><?= $k['nama']?></td>
       <td><?= $k['no_hp']?></td>
-      <td><?= $k['alamat']?></td>
+      <td><?= $k['alamat']?></td>      
       <td>
         <select class="dusun" data-id="<?= $k['id_user']?>" name="dusun" >
-          <option> Pilih Dusun </option>            
+          <option> Pilih Dusun </option>    
+          <?php if($dusun !== null) {} ?>       
           <?php foreach($dusun as $d) : ?>         
             <option class="id"value="<?= $d['id_dusun']?>" ><?= $d['nama_dusun']?></option>   
           <?php endforeach ?> 
         </select><br>
         <small> Kepala Dusun : <?= $k['nama_dusun'] ?> </small>
       </td>
+      <td><a class="btn btn-danger" href="<?= base_url('sekdes/hapususer/').$k['id_user'] ?>" role="button" onclick="return confirm('Yakin hapus data?')">Hapus</a></td>
       <!-- 
         tugas rupb
             menjelaskan ke 4 bentuk proses itu apa dan beri contoh
@@ -40,6 +43,16 @@
     </tr>      
     <?php endforeach ?>
   </tbody>  
+  <?php foreach($dusun as $ds){
+      // if(end($ds) == null){
+      //   echo 'user baru';
+      // }
+      // else{
+      //   echo "lama"
+      // }
+      // var_dump(end($dusun));
+
+  } ?>
 </table>
 <!-- Note 
             $key pada foreach sebaiknya jangan data itu sendiri 

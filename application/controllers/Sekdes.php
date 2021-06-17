@@ -108,6 +108,11 @@
 
 
         }
+
+        public function hapusUser()
+        {
+            return $this->User->hapus();
+        }
     }
 
         

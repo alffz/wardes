@@ -18,6 +18,16 @@
            return $this->db->get('dusun')->result_array();
            
         }
+
+        public function hapus()
+        {
+            $id     = $this->uri->segment(3);
+            // hapus user
+            $this->db->where('id_user',$id);
+            $this->db->delete('user');
+            redirect('sekdes/kadus');
+
+        }
     }
 
 ?>

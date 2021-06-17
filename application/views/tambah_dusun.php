@@ -42,18 +42,20 @@
                     <th scope="col">Kepala Dusun</th>
                     <th scope="col">Jumlah KK</th>
                     <th scope="col">Jumlah Penduduk</th>
+                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1; foreach ($dusun as $dusun) : ?>
+                <?php $no = 1; foreach ($dusun as $d) : ?>
                     <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $dusun->nama_dusun ?></td>
+                        <td><?= $d->nama_dusun ?></td>
                         <td>--</td>
                         <td>--</td>
+                        <td>--</td> 
                         <td>
-                            
-                        </td>                              
+                        <a href="<?= base_url('hapus/dusun/'.$d->id_dusun)?>" data-toggle="tooltip" data-placement="top" title="Anggota Keluarga"  class="btn btn-success btn-xs"><i class="fas fa-user-friends" aria-hidden="true">Hapus</i></a>
+                        </td>                             
                     </tr>
                 <?php endforeach ?>            
             </tbody>

@@ -22,21 +22,15 @@
         }
 
         // get dusun
-        public function GetDusun(Type $var = null)
+        public function GetDusun($var = null)
         {
-            return $this->db->get('dusun')->result();
+            $this->db->select("*");
+            $this->db->from('dusun');
+            $this->db->where('nama_dusun !=',0);
+            $this->db->order_by('nama_dusun','asc');
+            return $this->db->get()->result();
         }
 
-        // edit dusun 
-        public function EditDusun(Type $var = null)
-        {
-            $dusun= [
-                'id_dusun'  => $this->input->post('id_dusun',true),
-                'nama_dusun'=> $this->input->post('nama',true),
-            ];
-            $this->db->where('id_dusun');
-            $this->db->update('dusun',$dusun);
-        }
     }
 
 ?>
