@@ -18,17 +18,21 @@
         // get jalan
         public function GetDusun()
         {
-            return $this->db->get('dusun')->result_array();
+            $user   = $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
+            $id = $user['id_dusun'];
+            $this->db->select('*');
+            $this->db->from('dusun');
+            $this->db->where('id_dusun',$id);
+            return $this->db->get()->row_array();
         }
         // get jalan
-        public function GetJalan($val='')
+        public function GetJalan()
         {
-           $this->db->where('id_dusun',$val);
-           $this->db->order_by('nama_jalan',);
-           $query   = $this->db->get('jalan')->result();
-           foreach($query as $row){
-               echo '<option value="'.$row->id_jalan.'">'.$row->nama_jalan.'</option>';
-           }
+            $id = $this->GetDusun();
+            $id = $id['id_dusun'];
+            $this->db->where('id_dusun',$id);
+            $this->db->order_by('nama_jalan',);
+           return $this->db->get('jalan')->result();           
         }
     }
 

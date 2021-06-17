@@ -23,10 +23,7 @@
                         <label class="input-group-text" for="inputGroupSelect01">Pilih Dusun</label>
                         </div>
                             <select name='dusun' id='dusun' class="custom-select" >  
-                                <option>Pilih Dusun</option>                  
-                                <?php  foreach($dusun as $dusun): ?>
-                                    <option value='<?= $dusun['id_dusun'] ?>' ><?= $dusun['nama_dusun'] ?> </option>
-                                <?php endforeach ?>
+                                <option value='<?= $dusun['id_dusun'] ?>' ><?= $dusun['nama_dusun'] ?> </option>
                             </select>                    
                         </div>
                     <!-- end gang -->
@@ -36,9 +33,11 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Pilih Jalan</label>
                         </div>
-                            <select name='jalan' id='jalan' class="custom-select" id="inputGroupSelect01">
-                                <option >Pilih Jalan</option>
-                            </select>                    
+                            <select name='jalan' id='jalan' class="custom-select" id="inputGroupSelect01">                                
+                                <?php foreach($jalan as $j) : ?>
+                                    <option value='<?= $j->id_jalan ?>' ><?= $j->nama_jalan ?></option>
+                                <?php endforeach ?>   
+                            </select> 
                         </div>
                     <!-- end gang -->
                     </div>

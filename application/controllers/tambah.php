@@ -71,7 +71,7 @@
             if($this->form_validation->run() == FALSE){
                 $data['header']     = 'hold-transition sidebar-mini layout-fixed';
                 $data['wrapper']    = 'wrapper';
-                $data['jalan']      = $this->ModelGang->getjalan();
+                $data['jalan']      = $this->ModelGang->GetJalan();
                 $data['dusun']      = $this->ModelGang->GetDusun();
                 $data['user']   	= $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
                 $data['title']      = "Tambah Gang";
