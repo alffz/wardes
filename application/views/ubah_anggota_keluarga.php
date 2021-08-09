@@ -1,6 +1,6 @@
 <div class="container ">
 <div class="box">
- <a class="btn btn-danger" href="<?= base_url('data/anggotakeluarga/'.$this->uri->segment(3))?>" >kembali</a>
+ <a class="btn btn-danger" href="<?= base_url('data/anggotakeluarga/'.$this->uri->segment(4))?>" >kembali</a>
  </div>
     <?= validation_errors() ?>
     <form role='form' method='post' >

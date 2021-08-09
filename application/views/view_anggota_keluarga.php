@@ -46,9 +46,20 @@
               "data" : {
                     // kirim ke data/get_ajax_ak
                     idkk:dataId
+              },
+
+              "target" : 2,
+              "render": function(data,type){
+                console.log('data ='+data);
+                      if(data=="w"){
+                        date  = "Wanita";
+                      }else{
+                        data = "Pria";
+                      }
               }
             },
             "order": [],
+
         } );
     } );
 </script>

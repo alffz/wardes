@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/datatable.min.css') ?>">
 <div class="container ml-3">
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -17,8 +17,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">                
-                    <p>Pilih Dusun Kemudian tambahkan nama jalannya, nama jalan akan disimpan berdasarkan dusunnya </p>
+                <div class="modal-body">
                     <?= validation_errors() ?>
                     <form role='form' method='post'>
                         <div class="card-body">
@@ -43,10 +42,6 @@
                         </div>            
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>
@@ -55,32 +50,41 @@
 <!-- tampilkan nama-nama jalan yang ada di database berdasarkan id user , dimana user berelasi dengan id_dusun -->
 <!-- SELECT * FROM jalan WHERE id_user = 'user_dengan_id_dusun_1 -->
 
-<div class="container">
-    <div class="col-lg-12 col-md-6">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama Dusun</th>
-                    <th scope="col">Kepala Dusun</th>
-                    <th scope="col">Jumlah KK</th>
-                    <th scope="col">Jumlah Penduduk</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; foreach ($dusun as $dusun) : ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $dusun->nama_dusun ?></td>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>
-                            
-                        </td>                              
-                    </tr>
-                <?php endforeach ?>            
-            </tbody>
-        </table>
-        <?php var_dump($pagination) ?>
-    </div>
+<table id="kartukeluarga" class="table table-striped table-bordered" style="width:100%">
+    <thead class="thead-dark">
+      <tr>
+        <th>No</th>        
+        <th>Nama Jalan</th>
+        <th>--</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
 </div>
+  <!-- jQuery UI 1.11.4 -->
+<script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.js"></script>
+ <script>
+    $(document).ready(function() {
+        $('#kartukeluarga').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+              "url"  : "<?= base_url('tambah/get_ajax')?>",
+              "type" : "POST",
+              "data" : {
+                id_dusun:"<?=$user['id_dusun'] ?>"
+              }
+            },
+            "columnDefs":[
+              {
+                "targets":[0,1],
+                "orderable":true
+              }
+            ],
+            "order": []
+        } );
+    } );
+</script>

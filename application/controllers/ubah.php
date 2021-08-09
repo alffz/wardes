@@ -29,7 +29,7 @@
             if($this->form_validation->run()==false){
                 $data   = [
                     'title'             => 'Ubah Anggota Keluarga',
-                    'user'              => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
+                    // 'user'              => $this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array(),
                     'anggotaKeluarga'   => $this->ModelAnggotaKeluarga->getAk(),
                     'pendidikan'        => $this->ModelAnggotaKeluarga->GetPendidikan(),
                     'pekerjaan'         => $this->ModelAnggotaKeluarga->GetPekerjaan(),
@@ -45,6 +45,27 @@
                 redirect('ubah/anggotakelauaga/'.$this->uri->segment(3));
             }
 
+        }
+
+        // ubah jalan
+        
+        public function jalan( )
+        {
+            $this->form->validation->set_rules('nama',"Nama","required");
+
+            if($this->form->validation->run()==false){
+                $data = [
+                    'title' => "Ubah nama jalan",                    
+                ];
+                $this->load->view('header');
+                $this->load->view('disebar');
+                $this->load->view('viw_ubah_jalan');
+                $this->laod->view('footer');
+            }
+            else{
+                $this->ModelUbahJalan->ubahJalan();
+                redirect(base_url('tambah/jalan'));
+            }
         }
 
     }

@@ -1,6 +1,5 @@
 <div class="container ">
     <div class="row justify-content-center">
-    <?php echo 'cek';var_dump($kaka) ?>
         <div class="col-md-12 col-lg-6">
         <?= validation_errors() ?>
         <?= $this->session->flashdata('nik') ?>

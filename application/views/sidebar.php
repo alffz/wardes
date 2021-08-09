@@ -71,7 +71,7 @@
           
           /* tampilkan user_menu.menu dari tabel join antara user_menu dan user_acce_access_menu berdasarkan
             user_menu.role_menu dan user_access_menu.role_menu yg memiliki nilai sama , dan pilih yang 
-            user_access_menu.role_acces sama dengan = $role_id
+            user_access_menu.role_acces == $role_id
           */
           $query_menu     = "SELECT menu,user_menu.role_menu FROM user_menu INNER JOIN user_access_menu 
                             ON user_menu.role_menu = user_access_menu.role_menu 
@@ -93,8 +93,10 @@
               <a href="<?= base_url().$sub_menu['url']?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p><?= $sub_menu['title']?></p>
+                  <p><?= $menu['role_menu']?></p>
               </a>
             </li>
+            
           <?php endforeach ?>
         <?php endforeach ?>
           

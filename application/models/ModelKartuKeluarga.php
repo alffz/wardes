@@ -31,7 +31,7 @@
         }
 
         // insert data kartu keluarga
-        public function TambahKartuKeluarga(Type $var = null)
+        public function TambahKartuKeluarga( $var = null)
         {
             // insert jika NIK belum ada 
             $nik   = $this->input->post('nik');
@@ -186,8 +186,8 @@
         return $query->result();
     }
     function count_filtered() {
-        // $id  = 'n';
-        $this->_get_datatables_query($id='');
+        $id  = $this->input->post('iddusun');
+        $this->_get_datatables_query($id);
         $query = $this->db->get();
         return $query->num_rows();
     }

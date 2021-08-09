@@ -11,7 +11,7 @@
             // jika sesion email gak ada redirect ke login , is_logedin dibuat di helper
             is_logedin();
         }
-        public function index(Type $var = null)
+        public function index( $var = null)
         {
             $data   = [
                 'title'     => 'Kartu Keluarga',
@@ -82,11 +82,11 @@
                 $no++;
                 $row    = array();
                 $row[]  = $no;
-                $row[]  =   '<a href="'.base_url('ubah/anggotakelauaga/'.$item->id_ak).'"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+                $row[]  =   '<a href="'.base_url('ubah/anggotakelauaga/'.$item->id_ak.'/'.$id_kk).'"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
                             <a href="'.base_url('hapus/hapusAk/'.$item->id_ak.'/'.$id_kk).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
                 $row[]  = $item->nik;
                 $row[]  = $item->nama;
-                $row[]  = $item->kelamin;
+                $row[]  = $item->kelamin;                        
                 $row[]  = $item->id_hub_keluarga;
                 $row[]  = $item->tmpt_lahir;        
                 $row[]  = $item->tanggal_lahir;  
@@ -94,6 +94,7 @@
                 $row[]  = $item->agama;
                 $row[]  = $item->kewarganegaraan;           
                 $data[] = $row;
+                
             }
             $output = array(
                         "draw" => @$_POST['draw'],
@@ -110,6 +111,9 @@
             // hapus berdasarkan $id
             $this->db->delete('kartu_keluarga',array('id_kk'=>$id));
             redirect('data/penduduk');
+            if($id==0){
+                echo"cek";
+            }
 
         }
 

@@ -12,7 +12,7 @@
             is_logedin();
         }
 
-        public function jalan(Type $var = null)
+        public function jalan( $var = null)
         {
                // jika tambah inser gagal balik ke halamn ini
                $this->form_validation->set_rules('jalan','Jalan','required');
@@ -32,7 +32,7 @@
                    // tambahkan jalan ke database 
                    $this->ModelJalan->tambahjln();
                    // kemudian alihkan ke base home
-                   redirect('tambah/');
+                   redirect('tambah/jalan');
                }
         }
         // tambah dusun 
@@ -133,7 +133,7 @@
             }
         }
 
-        public function ruleAk(Type $var = null)
+        public function ruleAk( $var = null)
         {
             $this->form_validation->set_rules('nama','Nama','required');
             $this->form_validation->set_rules('nik','Nik','required');
@@ -211,6 +211,34 @@
         {
             $id_jalan = $this->input->post('jalan');
             echo $this->ModelKartuKeluarga->GetGang($id_jalan);
+        }
+
+        // data table serverside jalan
+        function get_ajax() {
+            // jika $user = kadus maka     
+            $id_dusun    = $this->input->post('id_dusun');
+            $list = $this->ModelJalan->get_datatables($id_dusun);
+            // jika $user  = sekdes maka ModelData->get_all_data()        
+            $data = array();
+            $no = @$_POST['start'];
+            foreach ($list as $item) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $item->nama_jalan;
+                $row[] = 
+                        '<a href="'.base_url('ubah/jalan/'.$item->id_jalan).'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+                         <a href="'.base_url('hapus/jalan/'.$item->id_jalan).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
+                $data[] = $row;
+            }
+            $output = array(
+                        "draw" => @$_POST['draw'],
+                        "recordsTotal" => $this->ModelJalan->count_all(),
+                        "recordsFiltered" => $this->ModelJalan->count_filtered(),
+                        "data" => $data,
+                    );
+            // output to json format
+            echo json_encode($output);
         }
 
     }
