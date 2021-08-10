@@ -23,7 +23,7 @@
                         <div class="card-body">
                         <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Pilih Dusun</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Dusun</label>
                                 </div>
                                 <select name='dusun' class="custom-select" id="inputGroupSelect01"> 
                                     <option value='<?= $dusun['id_dusun'] ?>' ><?= $dusun['nama_dusun'] ?> </option>
