@@ -81,6 +81,30 @@
             return $this->db->count_all_results();
         }
         // end datatables
+
+        public function ubahJalan()
+        {
+            $id = $this->uri->segment(3);
+
+            $data = array(
+                'nama_jalan' => $this->input->post('jalan'),
+                'id_dusun'   => $this->input->post('dusun')
+            );
+            
+            $this->db->where('id_jalan', $id);
+            $this->db->update('jalan', $data);
+        }
+
+        // get jalan
+
+        public function getJalan()
+        {
+            $id_jalan   = $this->uri->segment(3);
+
+            $this->db->select('*');
+            $this->db->where('id_jalan',$id_jalan);
+            return $this->db->get('jalan')->row();
+        }
     }
 
 ?>

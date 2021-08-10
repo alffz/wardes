@@ -20,6 +20,7 @@
     </tbody>
   </table>
 </div>
+<?= $user['id_dusun'] ?>
   <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.js"></script>
  <script>

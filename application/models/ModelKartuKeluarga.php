@@ -148,13 +148,25 @@
             JOIN dusun ON kartu_keluarga.id_dusun = dusun.id_dusun
     */
 
-    private function _get_datatables_query($iddusun) {
-        $this->db->select('*');
-		$this->db->from('kartu_keluarga');
-		$this->db->join('dusun', 'kartu_keluarga.id_dusun = dusun.id_dusun');
-		$this->db->join('jalan', 'kartu_keluarga.id_jalan = jalan.id_jalan');
-        $this->db->join('gang', 'kartu_keluarga.id_gang = gang.id_gang');
-        $this->db->where('kartu_keluarga.id_dusun',$iddusun);
+    private function _get_datatables_query($id_dusun) {
+        // jika id_dusun = sekdes , maka tampilkan semua record
+        if($id_dusun=='sekdes'){
+            $this->db->select('*');
+            $this->db->from('kartu_keluarga');
+            $this->db->join('dusun', 'kartu_keluarga.id_dusun = dusun.id_dusun');
+            $this->db->join('jalan', 'kartu_keluarga.id_jalan = jalan.id_jalan');
+            $this->db->join('gang', 'kartu_keluarga.id_gang = gang.id_gang');
+            // $this->db->where('kartu_keluarga.id_dusun',$id_dusun);
+        }
+        // selain sekdes tampilkan berdasarkan id_dusun nya
+        else{
+            $this->db->select('*');
+            $this->db->from('kartu_keluarga');
+            $this->db->join('dusun', 'kartu_keluarga.id_dusun = dusun.id_dusun');
+            $this->db->join('jalan', 'kartu_keluarga.id_jalan = jalan.id_jalan');
+            $this->db->join('gang', 'kartu_keluarga.id_gang = gang.id_gang');
+            $this->db->where('kartu_keluarga.id_dusun',$id_dusun);
+        }
         $i = 0;
         foreach ($this->column_search as $item) { // loop column 
             if(@$_POST['search']['value']) { // if datatable send POST for search
@@ -177,8 +189,8 @@
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
-    function get_datatables($iddusun) {
-        $id = $iddusun;
+    function get_datatables($id_dusun) {
+        $id = $id_dusun;
         $this->_get_datatables_query($id);
         if(@$_POST['length'] != -1)
         $this->db->limit(@$_POST['length'], @$_POST['start']);
