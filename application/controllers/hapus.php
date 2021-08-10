@@ -16,6 +16,12 @@
             $this->db->delete('dusun',array('id_dusun'=>$id));
             redirect('tambah/dusun/');
         }
+
+        public function jalan()
+        {
+            $this->ModelJalan->hapusJalan();
+            redirect('tambah/jalan');
+        }
     }
 
 ?>

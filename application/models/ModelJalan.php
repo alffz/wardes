@@ -105,6 +105,17 @@
             $this->db->where('id_jalan',$id_jalan);
             return $this->db->get('jalan')->row();
         }
+
+        // hapus jalan
+
+        public function hapusJalan()
+        {
+            $id_jalan = $this->uri->segment(3);
+
+            $this->db->where('id_jalan',$id_jalan);
+            $this->db->delete('jalan');
+            
+        }
     }
 
 ?>
