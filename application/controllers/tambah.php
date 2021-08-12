@@ -9,7 +9,7 @@
             $this->load->helper('fungsi');
             $this->load->model('ModelAnggotaKeluarga');
             // jika sesion email gak ada redirect ke login
-            is_logedin();
+            // is_logedin();
         }
 
         public function jalan( $var = null)
@@ -84,7 +84,7 @@
                 // 
                 $this->ModelGang->tambahgang();
                 // alihkan ke base home
-                redirect('tambah');
+                redirect('tambah/gang');
             }
         }
 
@@ -241,6 +241,35 @@
             echo json_encode($output);
         }
 
+        // get gang for view
+        function get_ajax_gang() {
+            $id_dusun = $this->input->post('id_dusun');
+            // jika $user = kadus maka     
+            $list = $this->ModelGang->get_datatables($id_dusun);
+            // jika $user  = sekdes maka ModelData->get_all_data()        
+            $data = array();
+            $no = @$_POST['start'];
+            foreach ($list as $item) {
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $item->nama_gang;
+                $row[] = $item->nama_jalan;
+                $row[] = $item->nama_dusun;
+                $row[] = 
+                        '<a href="'.base_url('ubah/gang/'.$item->id_gang).'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+                         <a href="'.base_url('hapus/gang/'.$item->id_gang).'" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>';
+                $data[] = $row;
+            }
+            $output = array(
+                        "draw" => @$_POST['draw'],
+                        "recordsTotal" => $this->ModelGang->count_all(),
+                        "recordsFiltered" => $this->ModelGang->count_filtered(),
+                        "data" => $data,
+                    );
+            // output to json format
+            echo json_encode($output);
+        }
     }
 
 ?>

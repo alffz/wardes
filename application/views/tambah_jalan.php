@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12 mt-3">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahjalan">
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahjalan">
                 Tambah Jalan
             </button>
         </div>  
@@ -49,20 +49,22 @@
 
 <!-- tampilkan nama-nama jalan yang ada di database berdasarkan id user , dimana user berelasi dengan id_dusun -->
 <!-- SELECT * FROM jalan WHERE id_user = 'user_dengan_id_dusun_1 -->
-
-<table id="kartukeluarga" class="table table-striped table-bordered" style="width:100%">
-    <thead class="thead-dark">
-      <tr>
-        <th>No</th>        
-        <th>Nama Jalan</th>
-        <th>--</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-      </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-md-8 ml-3">
+    <table id="kartukeluarga" class="table table-striped table-bordered" style="width:100%">
+      <thead class="thead-dark">
+        <tr>
+          <th>No</th>        
+          <th>Nama Jalan</th>
+          <th>--</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
   <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.js"></script>
